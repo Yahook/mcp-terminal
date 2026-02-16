@@ -85,6 +85,9 @@ impl SessionManager {
 
         let mut cmd = CommandBuilder::new(&shell_cmd);
         cmd.cwd(&working_dir);
+        // Disable pager to prevent hangs in non-fully-functional PTY
+        cmd.env("PAGER", "cat");
+        cmd.env("GIT_PAGER", "cat");
 
         // Spawn the shell in the slave PTY
         let _child = pair
@@ -273,6 +276,9 @@ impl SessionManager {
         cmd.arg("-c");
         cmd.arg(command);
         cmd.cwd(&working_dir);
+        // Disable pager to prevent hangs in non-fully-functional PTY
+        cmd.env("PAGER", "cat");
+        cmd.env("GIT_PAGER", "cat");
 
         let mut child = pair
             .slave
