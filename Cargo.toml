@@ -1,0 +1,24 @@
+[package]
+name = "mcp-terminal"
+version = "0.1.0"
+edition = "2021"
+description = "MCP server for terminal session management with PTY support"
+license = "AGPL-3.0-or-later"
+repository = "https://github.com/Yahook/mcp-terminal"
+
+[dependencies]
+rmcp = { version = "0.15", features = ["server", "transport-io"] }
+portable-pty = "0.9"
+tokio = { version = "1", features = ["full"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+schemars = "0.8"
+uuid = { version = "1", features = ["v4"] }
+chrono = { version = "0.4", features = ["serde"] }
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+
+[profile.release]
+lto = true
+strip = true
+codegen-units = 1
